@@ -20,8 +20,5 @@ public class GameManager : MonoBehaviour
     }
 
     // Metodo para cambiar a una escena por nombre
-    public void CambiarEscena(string nombreEscena)
-    {
-        SceneManager.LoadScene(nombreEscena);
-    }
+   
 }
