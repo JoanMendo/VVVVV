@@ -8,17 +8,17 @@ public class CharacterMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private float InputX;
-    private bool Grounded;
-    private float time = 0f;
-    private Renderer renderer;
-    private ParticleSystem ps;
+    public LayerMask groundLayer;
+    public PhysicsMaterial2D[] physicMaterials;
+
+
+
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
+
         rb = GetComponent<Rigidbody2D>();
-        ps = GetComponentInChildren<ParticleSystem>();
         if (GameObject.FindGameObjectsWithTag("Player") == null)
         DontDestroyOnLoad(gameObject);
     }
@@ -26,30 +26,51 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time += Time.deltaTime;
+
         InputX = Input.GetAxis("Horizontal");
         
         rb.velocity = new Vector2(InputX * speed, rb.velocity.y);
 
         
-        if (Input.GetKeyDown(KeyCode.Space) && Grounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.gravityScale *= -1;
-            Grounded = false;
-            rb.sharedMaterial = new PhysicsMaterial2D { friction = 0, bounciness = 0 };
+            DetectTerrain();
+                 
         }
-     
-
 
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void Die()
+    {
+        Destroy(gameObject);
+
+    }
+    public void DetectTerrain()
+    {
+        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.45f, groundLayer);
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.45f, groundLayer);
+
+
+
+        if (hitDown.collider != null || hitUp.collider != null)
+        {
+            rb.gravityScale *= -1;
+            gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[1];
+
+        }
+        
+
+    }
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Grounded = true;
-
-            rb.sharedMaterial = new PhysicsMaterial2D { friction = 1, bounciness = 0 };
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.45f, groundLayer);
+            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.45f, groundLayer);
+            if (hitDown.collider != null || hitUp.collider != null)
+            {
+                gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[0];
+            }
         }
     }
 }
