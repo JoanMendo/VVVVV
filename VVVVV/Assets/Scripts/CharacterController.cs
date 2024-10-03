@@ -52,13 +52,21 @@ public class CharacterMovement : MonoBehaviour
             DetectTerrain();
                  
         }
-        if (rb.velocity.x < 0)
+        if (rb.velocity.x < 0 && rb.gravityScale > 0)
         {
-            spriteRenderer.flipX = true;
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else if (rb.velocity.x > 0)
+        else if (rb.velocity.x < 0 && rb.gravityScale < 0)
         {
-            spriteRenderer.flipX = false;
+            gameObject.transform.rotation = Quaternion.Euler(180, 180, 00);
+        }
+        if (rb.velocity.x >= 0 && rb.gravityScale > 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        else if (rb.velocity.x >= 0 && rb.gravityScale < 0)
+        {
+            gameObject.transform.rotation = Quaternion.Euler(180, 0, 0);
         }
 
     }
@@ -70,10 +78,10 @@ public class CharacterMovement : MonoBehaviour
     }
     public void DetectTerrain()
     {
-        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.6f, groundLayer);
-        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.6f, groundLayer);
-        Debug.DrawRay(transform.position, Vector2.down * 0.6f, Color.red);
-        Debug.DrawRay(transform.position, Vector2.up * 0.6f, Color.red);
+        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, groundLayer);
+        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.8f, groundLayer);
+        Debug.DrawRay(transform.position, Vector2.down * 0.8f, Color.red);
+        Debug.DrawRay(transform.position, Vector2.up * 0.8f, Color.red);
          
 
 
@@ -81,6 +89,7 @@ public class CharacterMovement : MonoBehaviour
         {
             rb.gravityScale *= -1;
             gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[1];
+            animator.SetBool("IsFloating", true);
 
         }
         
@@ -90,13 +99,14 @@ public class CharacterMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ground"))
         {
-            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.45f, groundLayer);
-            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.45f, groundLayer);
-            Debug.DrawRay(transform.position, Vector2.down * 0.45f, Color.red);
-            Debug.DrawRay(transform.position, Vector2.up * 0.45f, Color.red);
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, groundLayer);
+            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.8f, groundLayer);
+            Debug.DrawRay(transform.position, Vector2.down * 0.8f, Color.red);
+            Debug.DrawRay(transform.position, Vector2.up * 0.8f, Color.red);
             if (hitDown.collider != null || hitUp.collider != null)
             {
                 gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[0];
+                animator.SetBool("IsFloating", false);
             }
         }
     }
