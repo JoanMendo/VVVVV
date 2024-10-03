@@ -67,6 +67,8 @@ public class CharacterMovement : MonoBehaviour
         {
             RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.45f, groundLayer);
             RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.45f, groundLayer);
+            Debug.DrawRay(transform.position, Vector2.down * 0.45f, Color.red);
+            Debug.DrawRay(transform.position, Vector2.up * 0.45f, Color.red);
             if (hitDown.collider != null || hitUp.collider != null)
             {
                 gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[0];
