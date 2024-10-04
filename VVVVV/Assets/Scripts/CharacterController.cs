@@ -11,7 +11,7 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask groundLayer;
     public PhysicsMaterial2D[] physicMaterials;
     private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    private bool isFloating = false;
 
 
 
@@ -25,7 +25,7 @@ public class CharacterMovement : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Player") == null)
         DontDestroyOnLoad(gameObject);
         animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        StartCoroutine(checkFloating());
     }
 
     // Update is called once per frame
@@ -58,7 +58,7 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (rb.velocity.x < 0 && rb.gravityScale < 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(180, 180, 00);
+            gameObject.transform.rotation = Quaternion.Euler(180, 180, 0);
         }
         if (rb.velocity.x >= 0 && rb.gravityScale > 0)
         {
@@ -78,36 +78,39 @@ public class CharacterMovement : MonoBehaviour
     }
     public void DetectTerrain()
     {
-        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, groundLayer);
-        RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.8f, groundLayer);
-        Debug.DrawRay(transform.position, Vector2.down * 0.8f, Color.red);
-        Debug.DrawRay(transform.position, Vector2.up * 0.8f, Color.red);
-         
+        RaycastHit2D hitDown = Physics2D.Raycast(transform.position, -transform.up, 1f, groundLayer);
+
+        Debug.DrawRay(transform.position, -transform.up * 1f, Color.red);
 
 
-        if (hitDown.collider != null || hitUp.collider != null)
+        if (hitDown.collider != null )
         {
             rb.gravityScale *= -1;
             gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[1];
             animator.SetBool("IsFloating", true);
+            isFloating = true;
 
         }
         
 
     }
-    public void OnCollisionEnter2D(Collision2D collision)
+
+    public IEnumerator checkFloating()
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, Vector2.down, 0.8f, groundLayer);
-            RaycastHit2D hitUp = Physics2D.Raycast(transform.position, Vector2.up, 0.8f, groundLayer);
-            Debug.DrawRay(transform.position, Vector2.down * 0.8f, Color.red);
-            Debug.DrawRay(transform.position, Vector2.up * 0.8f, Color.red);
-            if (hitDown.collider != null || hitUp.collider != null)
+        
+            RaycastHit2D hitDown = Physics2D.Raycast(transform.position, -transform.up, 1f, groundLayer);
+
+            Debug.DrawRay(transform.position, -transform.up * 1f, Color.red);
+
+            if ((hitDown.collider != null) && isFloating)
             {
+                Debug.Log("Grounded");
                 gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[0];
                 animator.SetBool("IsFloating", false);
             }
-        }
+            yield return new WaitForSeconds(0.05f);
+            yield return checkFloating();
+
+
     }
 }
