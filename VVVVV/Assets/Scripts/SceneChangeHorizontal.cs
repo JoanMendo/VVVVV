@@ -32,6 +32,7 @@ public class SceneChangerHorizontal : MonoBehaviour
                 if (playerRb.gravityScale > 0)
                 {
                     other.transform.position = PlayerSpawnPosition2.position;
+                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2;
                 }
                 else
                 {
@@ -49,6 +50,7 @@ public class SceneChangerHorizontal : MonoBehaviour
                 if (playerRb.gravityScale > 0)
                 {
                     other.transform.position = PlayerSpawnPosition1.position;
+                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1;
                 }
                 else
                 {

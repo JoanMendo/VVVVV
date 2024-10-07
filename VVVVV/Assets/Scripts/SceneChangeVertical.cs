@@ -7,6 +7,7 @@ public class SceneChangerVertical : MonoBehaviour
     public Transform room1CameraPosition;  
     public Transform room2CameraPosition;
     public Transform PlayerSpawnPosition1;
+    public Transform PlayerSpawnPosition1Inverted;
     public Transform PlayerSpawnPosition2;
 
 
@@ -28,8 +29,9 @@ public class SceneChangerVertical : MonoBehaviour
                     Camera.main.transform.position.z  
                 );
                 other.transform.position = PlayerSpawnPosition2.position;
+                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2;
 
-                
+
             }
             else if (playerRb.velocity.y > 0)  
             {
@@ -40,7 +42,8 @@ public class SceneChangerVertical : MonoBehaviour
                     Camera.main.transform.position.z
                 );
                 other.transform.position = PlayerSpawnPosition1.position;
-                
+                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1Inverted;
+
             }
         }
     }

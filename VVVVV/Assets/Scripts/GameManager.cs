@@ -1,9 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;  // Necesario para cambiar escenas
+using UnityEngine.SceneManagement;  
 
 public class GameManager : MonoBehaviour
 {
+    public GameObject playerPrefab;  // Prefab del jugador
     public static GameManager instance;
+    public Transform playerSpawnPoint;  // Punto de spawn del jugador
 
     void Awake()
     {
@@ -18,7 +20,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);  // Destruir duplicado si ya existe una instancia
         }
     }
+    public void RespawnPlayer()
+    {
+        Instantiate(playerPrefab, playerSpawnPoint.position, Quaternion.identity);  // Instanciar jugador en el punto de spawn
+        
+    }
 
-    // Metodo para cambiar a una escena por nombre
+
+  
    
 }

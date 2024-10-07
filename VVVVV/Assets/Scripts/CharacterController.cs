@@ -26,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Player") == null)
         DontDestroyOnLoad(gameObject);
         animator = GetComponent<Animator>();
+        animator.Play("Revive");   
         raycastOrigin = GetComponentInChildren<Transform>();
 
     }
@@ -52,6 +53,7 @@ public class CharacterMovement : MonoBehaviour
         {
 
             rb.gravityScale *= -1;
+            animator.SetBool("IsFloating", true);
 
         }
         if (rb.velocity.x < 0 && rb.gravityScale > 0)
@@ -79,6 +81,7 @@ public class CharacterMovement : MonoBehaviour
     public void Die()
     {
         Destroy(gameObject);
+        GameManager.instance.RespawnPlayer();
 
     }
 
@@ -102,7 +105,7 @@ public class CharacterMovement : MonoBehaviour
         else if (!isFloating)
         {
             gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[1];
-            animator.SetBool("IsFloating", true);
+            
             isFloating = true;
 
         }
