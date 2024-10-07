@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1956f7c223fb6634ba5862a20640ca33
+guid: 282895a050b4ffe42ba2b294ffec029a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 8
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -97,64 +97,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Trap_Spike_0
+      name: si (2)_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 31
-        height: 31
+        y: 8
+        width: 8
+        height: 8
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c1f51d73bdf9abd4b92437656b98dd5b
-      internalID: -977815642
+      spriteID: 620724e6fb5d6a94582b4fd8842387c7
+      internalID: 24153456
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trap_Spike_1
+      name: si (2)_1
       rect:
         serializedVersion: 2
-        x: 33
-        y: 1
-        width: 13
-        height: 30
+        x: 8
+        y: 8
+        width: 8
+        height: 8
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b11ed7cdcbc16264e91c8229764a04e2
-      internalID: 1144691874
+      spriteID: 25b50ba5566f2104796ec11cf5d36283
+      internalID: 554290779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Trap_Spike_2
+      name: si (2)_2
       rect:
         serializedVersion: 2
-        x: 49
-        y: 18
-        width: 30
-        height: 13
+        x: 0
+        y: 0
+        width: 8
+        height: 8
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 805d9b5190696fb4099e1fc2e0b054d9
-      internalID: -1299009705
+      spriteID: bdb418c4d905bb94fa317be798ba91d3
+      internalID: -1348963016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: si (2)_3
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 0
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e848821177e40540ae0b7256a44ad74
+      internalID: 1496168314
       vertices: []
       indices: 
       edges: []
@@ -170,9 +191,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Trap_Spike_0: -977815642
-      Trap_Spike_1: 1144691874
-      Trap_Spike_2: -1299009705
+      si (2)_0: 24153456
+      si (2)_1: 554290779
+      si (2)_2: -1348963016
+      si (2)_3: 1496168314
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
