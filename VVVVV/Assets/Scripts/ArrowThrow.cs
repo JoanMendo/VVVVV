@@ -23,6 +23,11 @@ public class ArrowThrow : MonoBehaviour
         while (true)
         {
             animator.Play("ArrowThrow");
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
         }
     }
+
+   
+    
 }
