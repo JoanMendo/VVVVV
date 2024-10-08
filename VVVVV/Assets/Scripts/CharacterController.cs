@@ -21,13 +21,14 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
         rb = GetComponent<Rigidbody2D>();
         if (GameObject.FindGameObjectsWithTag("Player") == null)
         DontDestroyOnLoad(gameObject);
         animator = GetComponent<Animator>();
         animator.Play("Revive");   
         raycastOrigin = GetComponentInChildren<Transform>();
+        StartCoroutine(lockMovementOnSpawn());
 
     }
 
@@ -74,7 +75,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         checkFloating();
-        Debug.Log(isFloating);
+
 
     }
 
@@ -99,8 +100,6 @@ public class CharacterMovement : MonoBehaviour
                 animator.SetBool("IsFloating", false);
                 isFloating = false;
             }
-           
-
         }
         else if (!isFloating)
         {
@@ -109,9 +108,13 @@ public class CharacterMovement : MonoBehaviour
             isFloating = true;
 
         }
+    }
+    public IEnumerator lockMovementOnSpawn()
+    {
 
-
-
-
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        yield return new WaitForSeconds(0.55f);
+        rb.constraints = RigidbodyConstraints2D.None;
+        rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
