@@ -5,17 +5,18 @@ using UnityEngine;
 public class ArrowThrow : MonoBehaviour
 {
     public Animator animator;
-    public GameObject arrowPrefab;
+    private GameObject arrowPrefab;
 
     void Start()
     {
         StartCoroutine(ThrowArrow());
+        arrowPrefab = transform.GetChild(0).gameObject;
     }
 
     public void spawnArrow()
     {
 
-        GameObject arrow = Instantiate(arrowPrefab, transform.position, Quaternion.identity);
+        GameObject arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
         arrow.GetComponent<Arrow>().enabled = true;
     }
   
@@ -30,8 +31,8 @@ public class ArrowThrow : MonoBehaviour
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
             spawnArrow();
 
-            // Espera el tiempo especificado antes de reproducir de nuevo
-            yield return new WaitForSeconds(6f);
+            float randomTime = Random.Range(2f, 3f);
+            yield return new WaitForSeconds(randomTime);
 
         }
     }

@@ -4,24 +4,42 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
+    private Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        gameObject.GetComponent<BoxCollider2D>().enabled = true;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        transform.position += -transform.right * 5f * Time.deltaTime;
+        transform.Translate(-transform.right * 10 * Time.deltaTime, Space.World);
+        Debug.DrawRay(transform.position, transform.right * 2, Color.red);  // Flecha roja para mostrar transform.right (local)
+        Debug.DrawRay(transform.position, Vector3.right * 2, Color.blue);   // Flecha azul para mostrar Vector3.right (global)
     }
+
+    
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "Ground")
+        {
+            GetComponentInChildren<ParticleSystem>().Play();
+            gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            Destroy(gameObject, 0.4f);
+        }
+            
         if (collision.gameObject.tag == "Player")
         {
-            Destroy(gameObject);
-            collision.GetComponent<CharacterMovement>().Die();
+                GetComponentInChildren<ParticleSystem>().Play();
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                Destroy(gameObject, 0.4f);
+                collision.gameObject.GetComponent<CharacterMovement>().Die();
         }
     }
 }
+
+

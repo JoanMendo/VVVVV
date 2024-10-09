@@ -13,6 +13,7 @@ public class CharacterMovement : MonoBehaviour
     private Animator animator;
     private bool isFloating = false;
     private Transform raycastOrigin;
+    private SpriteRenderer spriteRenderer;
 
 
 
@@ -23,12 +24,11 @@ public class CharacterMovement : MonoBehaviour
     {
         
         rb = GetComponent<Rigidbody2D>();
-        if (GameObject.FindGameObjectsWithTag("Player") == null)
-        DontDestroyOnLoad(gameObject);
         animator = GetComponent<Animator>();
         animator.Play("Revive");   
         raycastOrigin = GetComponentInChildren<Transform>();
         StartCoroutine(lockMovementOnSpawn());
+
 
     }
 
@@ -52,7 +52,7 @@ public class CharacterMovement : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space) && !isFloating)
         {
-
+            transform.position = new Vector2(transform.position.x, transform.position.y + 0.3f * rb.gravityScale);
             rb.gravityScale *= -1;
             animator.SetBool("IsFloating", true);
 
@@ -63,7 +63,9 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (rb.velocity.x < 0 && rb.gravityScale < 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(180, 180, 0);
+            
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+            
         }
         if (rb.velocity.x >= 0 && rb.gravityScale > 0)
         {
@@ -71,7 +73,9 @@ public class CharacterMovement : MonoBehaviour
         }
         else if (rb.velocity.x >= 0 && rb.gravityScale < 0)
         {
-            gameObject.transform.rotation = Quaternion.Euler(180, 0, 0);
+            
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 180);
+            
         }
 
         checkFloating();
@@ -88,9 +92,9 @@ public class CharacterMovement : MonoBehaviour
 
     public void checkFloating()
     {
-        RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin.position, -transform.up, 1f, groundLayer);
+        RaycastHit2D hitDown = Physics2D.Raycast(raycastOrigin.position, -transform.up, 0.3f, groundLayer);
 
-        Debug.DrawRay(transform.position, -transform.up * 1f, Color.red);
+        Debug.DrawRay(transform.position, -transform.up * 0.3f, Color.red);
 
         if (hitDown.collider != null)
         {
@@ -112,8 +116,8 @@ public class CharacterMovement : MonoBehaviour
     public IEnumerator lockMovementOnSpawn()
     {
 
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        yield return new WaitForSeconds(0.55f);
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX;
+        yield return new WaitForSeconds(0.6f);
         rb.constraints = RigidbodyConstraints2D.None;
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
