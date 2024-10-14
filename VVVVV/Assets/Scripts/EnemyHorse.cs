@@ -10,13 +10,13 @@ public class EnemyHorse : MonoBehaviour
     private float direction = 1;
     private float lastTime = -2;
     public float moveSpeed = 2f;
-    private bool isAttacking = false;
+    private Coroutine coroutine;
     void Start()
     {
         rb = gameObject.GetComponent<Rigidbody2D>();
         enemyRaycast = transform.GetChild(0).gameObject;
         gameObject.GetComponent<Animator>().SetBool("isMoving", true);
-        StartCoroutine(pauseOrMove());
+        coroutine = StartCoroutine(pauseOrMove());
     }
 
     // Update is called once per frame
@@ -44,8 +44,8 @@ public class EnemyHorse : MonoBehaviour
     {
         RaycastHit2D hitDown = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.down, 1f, groundLayer);
         RaycastHit2D hitRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 1f, groundLayer);
-        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 15f);
-        RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 15f);
+        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f);
+        RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 35f);
 
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.down, Color.red);
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.right * direction, Color.red);
@@ -56,16 +56,14 @@ public class EnemyHorse : MonoBehaviour
             direction *= -1;
             lastTime = Time.time;
         }
-        if (detectPlayerRight.collider != null || detectPlayerLeft.collider != null)
+        if ((detectPlayerRight.collider != null && detectPlayerRight.collider.CompareTag("Player")) || (detectPlayerLeft.collider != null && detectPlayerLeft.collider.CompareTag("Player")))
         {
+            StopCoroutine(coroutine);
+            coroutine = StartCoroutine(pauseOrMove());
             gameObject.GetComponent<Animator>().SetBool("isAtacking", true);
-            moveSpeed = 4;
-        }
-        else
-        {
-            gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
-
-        }   
+            gameObject.GetComponent<Animator>().SetBool("isMoving", true);
+            moveSpeed = 5;
+        }  
 
 
     }
@@ -76,6 +74,7 @@ public class EnemyHorse : MonoBehaviour
         {
             yield return new WaitForSeconds(2);
             gameObject.GetComponent<Animator>().SetBool("isMoving", false);
+            gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
             moveSpeed = 0;
             yield return new WaitForSeconds(2);
             gameObject.GetComponent<Animator>().SetBool("isMoving", true);
@@ -85,10 +84,19 @@ public class EnemyHorse : MonoBehaviour
                 direction *= -1;
             }
             moveSpeed = 2;
-          
         }
-       
-
     }
 
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            collision.gameObject.GetComponent<CharacterMovement>().Die();
+            gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
+            gameObject.GetComponent<Animator>().SetBool("isMoving", false);
+            gameObject.GetComponent<Animator>().SetBool("isDead", true);
+            Destroy(gameObject, 0.5f);
+
+        }
+    }
 }
