@@ -5,6 +5,7 @@ using UnityEngine;
 public class Arrow : MonoBehaviour
 {
     private Rigidbody2D rb;
+    private bool died = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,7 +17,7 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(-transform.right * 10 * Time.deltaTime, Space.World);
+        transform.Translate(-transform.right * 14 * Time.deltaTime, Space.World);
         Debug.DrawRay(transform.position, transform.right * 2, Color.red);  // Flecha roja para mostrar transform.right (local)
         Debug.DrawRay(transform.position, Vector3.right * 2, Color.blue);   // Flecha azul para mostrar Vector3.right (global)
     }
@@ -25,20 +26,27 @@ public class Arrow : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Ground")
+        if (!died)
         {
-            GetComponentInChildren<ParticleSystem>().Play();
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            Destroy(gameObject, 0.4f);
-        }
             
-        if (collision.gameObject.tag == "Player")
-        {
+            if (collision.gameObject.tag == "Ground")
+            {
+                died = !died;
+                GetComponentInChildren<ParticleSystem>().Play();
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                Destroy(gameObject, 0.4f);
+            }
+
+            if (collision.gameObject.tag == "Player")
+            {
+                died = !died;
                 GetComponentInChildren<ParticleSystem>().Play();
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 Destroy(gameObject, 0.4f);
                 collision.gameObject.GetComponent<CharacterMovement>().Die();
+            }
         }
+        
     }
 }
 

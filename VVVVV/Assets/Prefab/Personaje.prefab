@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6139466492341923400}
   - component: {fileID: 8169059754738914868}
   - component: {fileID: 8466257071548094842}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Personaje
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.09038031, y: 0.8490868}
+  m_Offset: {x: -0.09038031, y: 0.82436895}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.57, y: 0.2}
@@ -178,7 +178,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.4092705, y: 1.6842622}
+  m_Size: {x: 1.4092705, y: 1.7336979}
   m_EdgeRadius: 0
 --- !u!95 &8466257071548094842
 Animator:
@@ -210,7 +210,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5742081699935908068}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RaycastProyetcor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

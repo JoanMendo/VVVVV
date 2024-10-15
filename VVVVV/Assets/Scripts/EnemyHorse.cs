@@ -6,9 +6,10 @@ public class EnemyHorse : MonoBehaviour
 {
     private Rigidbody2D rb;
     public LayerMask groundLayer;
+    public LayerMask playerLayer;   
     private GameObject enemyRaycast;
     private float direction = 1;
-    private float lastTime = -2;
+    private float lastTime = -1;
     public float moveSpeed = 2f;
     private Coroutine coroutine;
     void Start()
@@ -44,14 +45,15 @@ public class EnemyHorse : MonoBehaviour
     {
         RaycastHit2D hitDown = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.down, 1f, groundLayer);
         RaycastHit2D hitRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 1f, groundLayer);
-        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f);
-        RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 35f);
+        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f, playerLayer);
+        RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 35f, playerLayer);
 
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.down, Color.red);
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.right * direction, Color.red);
+        
 
 
-        if ((hitDown.collider == null || hitRight.collider != null) && lastTime+2 < Time.time)
+        if ((hitDown.collider == null || hitRight.collider != null) && lastTime+1 < Time.time)
         {
             direction *= -1;
             lastTime = Time.time;
@@ -62,7 +64,7 @@ public class EnemyHorse : MonoBehaviour
             coroutine = StartCoroutine(pauseOrMove());
             gameObject.GetComponent<Animator>().SetBool("isAtacking", true);
             gameObject.GetComponent<Animator>().SetBool("isMoving", true);
-            moveSpeed = 5;
+            moveSpeed = 5.5f;
         }  
 
 
@@ -83,20 +85,20 @@ public class EnemyHorse : MonoBehaviour
             {
                 direction *= -1;
             }
-            moveSpeed = 2;
+            moveSpeed = 2.5f;
         }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<CharacterMovement>().Die();
-            gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
-            gameObject.GetComponent<Animator>().SetBool("isMoving", false);
-            gameObject.GetComponent<Animator>().SetBool("isDead", true);
-            Destroy(gameObject, 0.5f);
+    /*  public void OnCollisionEnter2D(Collision2D collision)
+      {
+          if (collision.gameObject.tag == "Player")
+          {
+              collision.gameObject.GetComponent<CharacterMovement>().Die();
+              gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
+              gameObject.GetComponent<Animator>().SetBool("isMoving", false);
+              gameObject.GetComponent<Animator>().SetBool("isDead", true);
+              Destroy(gameObject, 0.5f);
 
-        }
-    }
+          }
+      }*/
 }

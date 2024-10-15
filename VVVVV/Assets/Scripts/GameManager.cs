@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     public GameObject playerPrefab;  // Prefab del jugador
     public static GameManager instance;
     public Transform playerSpawnPoint;  // Punto de spawn del jugador
+    public Scene[] scenes;  // Array de escenas
+    public static int currentScene = 0;
 
     void Awake()
     {
@@ -19,6 +21,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);  // Destruir duplicado si ya existe una instancia
         }
+
     }
     public void RespawnPlayer()
     {
@@ -27,5 +30,9 @@ public class GameManager : MonoBehaviour
     }
 
 
-   
+
+
+
+
+
 }
