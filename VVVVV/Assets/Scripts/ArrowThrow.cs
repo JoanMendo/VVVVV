@@ -6,6 +6,7 @@ public class ArrowThrow : MonoBehaviour
 {
     public Animator animator;
     private GameObject arrowPrefab;
+    public Stack<GameObject> arrows = new Stack<GameObject>();
 
     void Start()
     {
@@ -18,6 +19,8 @@ public class ArrowThrow : MonoBehaviour
 
         GameObject arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
         arrow.GetComponent<Arrow>().enabled = true;
+        arrows.Push(arrow);
+
     }
   
 
@@ -29,9 +32,20 @@ public class ArrowThrow : MonoBehaviour
             animator.Play("Load");
 
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-            spawnArrow();
 
-            float randomTime = Random.Range(2f, 3f);
+            if (arrows.Count > 0 && arrows.Peek().GetComponent<Arrow>().died)
+            {
+                    GameObject arrow = arrows.Pop();
+
+                    arrow.transform.position = transform.position;
+                    arrow.GetComponent<Arrow>().enabled = true;
+                    arrow.GetComponent<Arrow>().died = false;
+ 
+            }
+            else
+                spawnArrow();
+
+            float randomTime = Random.Range(0f, 2f);
             yield return new WaitForSeconds(randomTime);
 
         }

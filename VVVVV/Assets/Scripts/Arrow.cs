@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Arrow : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private bool died = false;
+
+
+    public bool died = false;
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
-
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class Arrow : MonoBehaviour
                 died = !died;
                 GetComponentInChildren<ParticleSystem>().Play();
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                Destroy(gameObject, 0.4f);
+                this.enabled = false;
             }
 
             if (collision.gameObject.tag == "Player")
@@ -42,7 +42,7 @@ public class Arrow : MonoBehaviour
                 died = !died;
                 GetComponentInChildren<ParticleSystem>().Play();
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                Destroy(gameObject, 0.4f);
+                this.enabled = false;
                 collision.gameObject.GetComponent<CharacterMovement>().Die();
             }
         }

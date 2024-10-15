@@ -29258,6 +29258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 1498308580978183335, guid: 61e35b155b3db2348a06018540b8bdb6, type: 3}
   playerSpawnPoint: {fileID: 936890477}
+  scenes: []
 --- !u!1 &859455254
 GameObject:
   m_ObjectHideFlags: 0
