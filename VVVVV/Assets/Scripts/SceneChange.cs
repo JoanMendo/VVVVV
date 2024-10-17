@@ -6,14 +6,18 @@ using UnityEngine.SceneManagement;
 public class SceneChange : MonoBehaviour
 {
     public int direction;
-    public Transform room1CameraPosition;
-    public Transform room2CameraPosition;
-    public Transform PlayerSpawnPosition1;
-    public Transform PlayerSpawnPosition1Inverted;
-    public Transform PlayerSpawnPosition2;
+
     public void ChangeScene()
     {
-        GameManager.currentScene+= direction;
-        SceneManager.LoadScene(GameManager.currentScene);
+        GameManager.instance.direction = direction;
+        GameManager.instance.ChangeScene();
+    }
+
+    public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            ChangeScene();
+        }
     }
 }

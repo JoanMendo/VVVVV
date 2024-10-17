@@ -29,7 +29,7 @@ public class SceneChangerVertical : MonoBehaviour
                     Camera.main.transform.position.z  
                 );
                 other.transform.position = PlayerSpawnPosition2.position;
-                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2;
+                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2.position;
 
 
             }
@@ -42,7 +42,7 @@ public class SceneChangerVertical : MonoBehaviour
                     Camera.main.transform.position.z
                 );
                 other.transform.position = PlayerSpawnPosition1.position;
-                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1Inverted;
+                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1Inverted.position;
 
             }
         }

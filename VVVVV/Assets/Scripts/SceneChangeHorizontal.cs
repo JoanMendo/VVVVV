@@ -28,11 +28,13 @@ public class SceneChangerHorizontal : MonoBehaviour
                     room2CameraPosition.position.y,
                     Camera.main.transform.position.z  
                 );
-                
+
+                GameManager.instance.cameraPosition = room2CameraPosition.position;
+
                 if (playerRb.gravityScale > 0)
                 {
                     other.transform.position = PlayerSpawnPosition2.position;
-                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2;
+                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2.position;
                 }
                 else
                 {
@@ -47,10 +49,13 @@ public class SceneChangerHorizontal : MonoBehaviour
                     room1CameraPosition.position.y,
                     Camera.main.transform.position.z
                 );
+
+                GameManager.instance.cameraPosition = room1CameraPosition.position;
+
                 if (playerRb.gravityScale > 0)
                 {
                     other.transform.position = PlayerSpawnPosition1.position;
-                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1;
+                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1.position;
                 }
                 else
                 {

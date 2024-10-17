@@ -85,7 +85,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject);
+        GameObject.Destroy(gameObject);
         GameManager.instance.RespawnPlayer();
 
     }
