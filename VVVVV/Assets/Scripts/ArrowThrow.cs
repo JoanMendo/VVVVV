@@ -45,7 +45,7 @@ public class ArrowThrow : MonoBehaviour
             else
                 spawnArrow();
 
-            float randomTime = Random.Range(1f, 3f);
+            float randomTime = Random.Range(1f, 3.5f);
             yield return new WaitForSeconds(randomTime);
 
         }

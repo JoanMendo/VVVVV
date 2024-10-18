@@ -89,16 +89,12 @@ public class EnemyHorse : MonoBehaviour
         }
     }
 
-    /*  public void OnCollisionEnter2D(Collision2D collision)
+      public void OnCollisionEnter2D(Collision2D collision)
       {
           if (collision.gameObject.tag == "Player")
           {
               collision.gameObject.GetComponent<CharacterMovement>().Die();
-              gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
-              gameObject.GetComponent<Animator>().SetBool("isMoving", false);
-              gameObject.GetComponent<Animator>().SetBool("isDead", true);
-              Destroy(gameObject, 0.5f);
 
           }
-      }*/
+      }
 }
