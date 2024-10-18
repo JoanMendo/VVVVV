@@ -18,7 +18,7 @@ public class ArrowThrow : MonoBehaviour
     {
 
         GameObject arrow = Instantiate(arrowPrefab, transform.position, transform.rotation);
-        arrow.GetComponent<Arrow>().enabled = true;
+        arrow.SetActive(true);
         arrows.Push(arrow);
 
     }
@@ -36,16 +36,16 @@ public class ArrowThrow : MonoBehaviour
             if (arrows.Count > 0 && arrows.Peek().GetComponent<Arrow>().died)
             {
                     GameObject arrow = arrows.Pop();
-
+                    arrows.Push(arrow);
                     arrow.transform.position = transform.position;
-                    arrow.GetComponent<Arrow>().enabled = true;
+                    arrow.SetActive(true);
                     arrow.GetComponent<Arrow>().died = false;
- 
+
             }
             else
                 spawnArrow();
 
-            float randomTime = Random.Range(0f, 2f);
+            float randomTime = Random.Range(1f, 3f);
             yield return new WaitForSeconds(randomTime);
 
         }

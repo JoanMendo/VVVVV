@@ -25,9 +25,9 @@ public class CharacterMovement : MonoBehaviour
         
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        animator.Play("Revive");   
+  
         raycastOrigin = GetComponentInChildren<Transform>();
-        StartCoroutine(lockMovementOnSpawn());
+
 
 
     }
@@ -85,8 +85,15 @@ public class CharacterMovement : MonoBehaviour
 
     public void Die()
     {
-        GameObject.Destroy(gameObject);
-        GameManager.instance.RespawnPlayer();
+
+        animator.Play("Revive");
+        transform.position = GameManager.instance.playerSpawnPoint;
+        if (rb.gravityScale < 0)
+        {
+            rb.gravityScale *= -1;
+            rb.velocity = new Vector2(0, 0);
+        }
+        StartCoroutine(lockMovementOnSpawn());
 
     }
 

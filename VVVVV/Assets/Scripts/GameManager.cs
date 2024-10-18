@@ -25,11 +25,6 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
-    public void RespawnPlayer()
-    {
-        Instantiate(playerPrefab, playerSpawnPoint, Quaternion.identity);  // Instanciar jugador en el punto de spawn
-        
-    }
 
     public void ChangeScene()
     {
