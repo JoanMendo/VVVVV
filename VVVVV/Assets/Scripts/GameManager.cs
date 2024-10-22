@@ -12,15 +12,14 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        // Si ya existe una instancia del GameManager, destruir esta para evitar duplicados
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);  // Evitar que este objeto sea destruido al cargar una nueva escena
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);  // Destruir duplicado si ya existe una instancia
+            Destroy(gameObject);  
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -28,9 +27,9 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene()
     {
-        currentScene += direction;  // Cambiar la escena actual
+        currentScene += direction;  
        
-        // Cargar la nueva escena
+
         
         SceneManager.LoadScene(currentScene);
     }

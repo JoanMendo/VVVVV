@@ -1,13 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CanvasScript : MonoBehaviour
 {
     public Canvas canvas;
+    public static CanvasScript instance;
     bool ispaused = false;
 
     // Update is called once per frame
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -22,7 +37,6 @@ public class CanvasScript : MonoBehaviour
                 Resume();
                 ispaused = false;
             }
-        DontDestroyOnLoad(gameObject);
     }
     
 
@@ -42,7 +56,8 @@ public class CanvasScript : MonoBehaviour
 
     public void Restart()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(GameManager.currentScene);
+        SceneManager.LoadScene(GameManager.currentScene);
+
         Resume();
     }
     public void Respawn()
