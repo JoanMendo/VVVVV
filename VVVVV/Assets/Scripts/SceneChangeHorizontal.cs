@@ -30,11 +30,12 @@ public class SceneChangerHorizontal : MonoBehaviour
                 );
 
                 GameManager.instance.cameraPosition = room2CameraPosition.position;
+                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2.position;
 
                 if (playerRb.gravityScale > 0)
                 {
                     other.transform.position = PlayerSpawnPosition2.position;
-                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2.position;
+                    
                 }
                 else
                 {
@@ -51,15 +52,16 @@ public class SceneChangerHorizontal : MonoBehaviour
                 );
 
                 GameManager.instance.cameraPosition = room1CameraPosition.position;
-
+                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1.position;
                 if (playerRb.gravityScale > 0)
                 {
                     other.transform.position = PlayerSpawnPosition1.position;
-                    GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1.position;
+
                 }
                 else
                 {
                     other.transform.position = PlayerSpawnPosition1Inverted.position;
+
                 }
             }
         }

@@ -45,8 +45,8 @@ public class EnemyHorse : MonoBehaviour
     {
         RaycastHit2D hitDown = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.down, 1f, groundLayer);
         RaycastHit2D hitRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 1f, groundLayer);
-        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f, playerLayer);
-        RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 35f, playerLayer);
+        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f, playerLayer | groundLayer);
+        RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 35f, playerLayer | groundLayer);
 
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.down, Color.red);
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.right * direction, Color.red);

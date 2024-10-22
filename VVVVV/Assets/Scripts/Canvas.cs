@@ -22,6 +22,7 @@ public class CanvasScript : MonoBehaviour
                 Resume();
                 ispaused = false;
             }
+        DontDestroyOnLoad(gameObject);
     }
     
 
@@ -42,11 +43,20 @@ public class CanvasScript : MonoBehaviour
     public void Restart()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(GameManager.currentScene);
-        Time.timeScale = 1;
+        Resume();
     }
     public void Respawn()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<CharacterMovement>().Die();
+        Resume();
+    }
+    public void Quit()
+    {
+
+        Application.Quit();
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 }
