@@ -41,19 +41,20 @@ public class EnemyHorse : MonoBehaviour
         }   
 
     }
-    public void detectLimit()
+    public void detectLimit() //Detecta tanto el suelo como al jugador
     {
         RaycastHit2D hitDown = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.down, 1f, groundLayer);
         RaycastHit2D hitRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 1f, groundLayer);
-        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f, playerLayer | groundLayer);
+        RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f, playerLayer | groundLayer); //El parametro final establece en que capas detecta el raycast
         RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 35f, playerLayer | groundLayer);
 
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.down, Color.red);
         Debug.DrawRay(enemyRaycast.transform.position, Vector2.right * direction, Color.red);
+
         
 
 
-        if ((hitDown.collider == null || hitRight.collider != null) && lastTime+1 < Time.time)
+        if ((hitDown.collider == null || hitRight.collider != null) && lastTime+1 < Time.time) //last time para que no se quede en un bucle al llegar a un limite
         {
             direction *= -1;
             lastTime = Time.time;
@@ -70,7 +71,7 @@ public class EnemyHorse : MonoBehaviour
 
     }
 
-    public IEnumerator pauseOrMove()
+    public IEnumerator pauseOrMove() //Hace que el enemigo se mueva y se pare aleatoriamente
     {
         while (true)
         {

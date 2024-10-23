@@ -22,14 +22,14 @@ public class Arrow : MonoBehaviour
             if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Player")
             {
                 died = true;
-                gameObject.SetActive(false);
+                gameObject.SetActive(false); // Lo desactiva para reusarlo después
 
 
             }
 
             if (collision.gameObject.tag == "Player")
             {
-                collision.gameObject.GetComponent<CharacterMovement>().Die();
+                collision.gameObject.GetComponent<CharacterMovement>().Die(); // Hace que el jugador muera
 
             }
         }

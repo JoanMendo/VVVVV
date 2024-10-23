@@ -29,13 +29,13 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+
     void Start()
     {
         GameManager.instance.initialSpawnpoint = transform.position;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        raycastOrigin = GetComponentInChildren<Transform>();
+        raycastOrigin = GetComponentInChildren<Transform>(); // Para poder modificar mejor el punto de origen de los raycast
 
     }
 
@@ -57,7 +57,7 @@ public class CharacterMovement : MonoBehaviour
         }
 
         
-        if (Input.GetKeyDown(KeyCode.Space) && !isFloating)
+        if (Input.GetKeyDown(KeyCode.Space) && !isFloating) //Solo se puede cambiar la gravedad si estas en el suelo
         {
             transform.position = new Vector2(transform.position.x, transform.position.y + 0.3f * rb.gravityScale);
             rb.gravityScale *= -1;
@@ -90,7 +90,7 @@ public class CharacterMovement : MonoBehaviour
 
     }
 
-    public void Die()
+    public void Die() //Resetea la posición del jugador
     {
 
         animator.Play("Revive");
@@ -114,20 +114,20 @@ public class CharacterMovement : MonoBehaviour
         {
             if (isFloating)
             {
-                gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[0];
+                gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[0]; //Le añade friccion
                 animator.SetBool("IsFloating", false);
                 isFloating = false;
             }
         }
         else if (!isFloating)
         {
-            gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[1];
-            
+            gameObject.GetComponent<Collider2D>().sharedMaterial = physicMaterials[1]; //Le quita friccion
+
             isFloating = true;
 
         }
     }
-    public IEnumerator lockMovementOnSpawn()
+    public IEnumerator lockMovementOnSpawn() //Para que no se mueva durante la animación de respawn
     {
 
         rb.constraints = RigidbodyConstraints2D.FreezePositionX;

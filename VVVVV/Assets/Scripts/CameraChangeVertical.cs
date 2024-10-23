@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneChangerHorizontal : MonoBehaviour
+public class CameraChangerVertical : MonoBehaviour
 {
     public Transform room1CameraPosition;  
     public Transform room2CameraPosition;
     public Transform PlayerSpawnPosition1;
-    public Transform PlayerSpawnPosition2;
     public Transform PlayerSpawnPosition1Inverted;
-    public Transform PlayerSpawnPosition2Inverted;
+    public Transform PlayerSpawnPosition2;
+
 
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -20,7 +20,7 @@ public class SceneChangerHorizontal : MonoBehaviour
             Rigidbody2D playerRb = other.GetComponent<Rigidbody2D>();
 
             
-            if (playerRb.velocity.x > 0)  
+            if (playerRb.velocity.y < 0)  
             {
                
                 Camera.main.transform.position = new Vector3(
@@ -28,21 +28,12 @@ public class SceneChangerHorizontal : MonoBehaviour
                     room2CameraPosition.position.y,
                     Camera.main.transform.position.z  
                 );
-
-                GameManager.instance.cameraPosition = room2CameraPosition.position;
+                other.transform.position = PlayerSpawnPosition2.position;
                 GameManager.instance.playerSpawnPoint = PlayerSpawnPosition2.position;
 
-                if (playerRb.gravityScale > 0)
-                {
-                    other.transform.position = PlayerSpawnPosition2.position;
-                    
-                }
-                else
-                {
-                    other.transform.position = PlayerSpawnPosition2Inverted.position;
-                }
+
             }
-            else if (playerRb.velocity.x < 0)  
+            else if (playerRb.velocity.y > 0)  
             {
                
                 Camera.main.transform.position = new Vector3(
@@ -50,19 +41,9 @@ public class SceneChangerHorizontal : MonoBehaviour
                     room1CameraPosition.position.y,
                     Camera.main.transform.position.z
                 );
+                other.transform.position = PlayerSpawnPosition1.position;
+                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1Inverted.position;
 
-                GameManager.instance.cameraPosition = room1CameraPosition.position;
-                GameManager.instance.playerSpawnPoint = PlayerSpawnPosition1.position;
-                if (playerRb.gravityScale > 0)
-                {
-                    other.transform.position = PlayerSpawnPosition1.position;
-
-                }
-                else
-                {
-                    other.transform.position = PlayerSpawnPosition1Inverted.position;
-
-                }
             }
         }
     }

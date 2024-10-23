@@ -168,8 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   direction: -1
-  nextPlayerPosition: {x: 45.5, y: -10.88, z: 0}
-  nextCameraPosition: {x: 55, y: -9.75, z: 0}
+  nextPlayerPosition: {x: 56, y: -11.5, z: 0}
+  nextCameraPosition: {x: 65.5, y: -10.4, z: 0}
 --- !u!61 &27289898
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19930,7 +19930,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5239069880174425701, guid: 61e35b155b3db2348a06018540b8bdb6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.5
+      value: 6.64
       objectReference: {fileID: 0}
     - target: {fileID: 5239069880174425701, guid: 61e35b155b3db2348a06018540b8bdb6, type: 3}
       propertyPath: m_LocalPosition.z

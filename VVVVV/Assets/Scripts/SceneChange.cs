@@ -12,7 +12,7 @@ public class SceneChange : MonoBehaviour
     public void ChangeScene()
     {
         GameManager.instance.direction = direction;
-        GameManager.instance.ChangeScene(nextCameraPosition, nextPlayerPosition);
+        GameManager.instance.ChangeScene(nextCameraPosition, nextPlayerPosition); //Las posiciones del jugador y la cámara en la escena
     }
 
     public void OnTriggerEnter2D(Collider2D other)

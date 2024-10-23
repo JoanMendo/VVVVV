@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public static int currentScene = 0;
     public int direction = 1;
 
-    void Awake()
+    void Awake()  //Lo hago singleton
     {
         if (instance == null)
         {
