@@ -13,22 +13,29 @@ public class CharacterMovement : MonoBehaviour
     private Animator animator;
     private bool isFloating = false;
     private Transform raycastOrigin;
-    private SpriteRenderer spriteRenderer;
+    private static CharacterMovement instance;
 
-
-
-
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Hace que el jugador persista entre escenas
+            
+        }
+        else
+        {
+            Destroy(gameObject); // Destruye la instancia duplicada
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameManager.instance.initialSpawnpoint = transform.position;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-  
         raycastOrigin = GetComponentInChildren<Transform>();
-
-
 
     }
 

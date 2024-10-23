@@ -6,16 +6,16 @@ using UnityEngine.SceneManagement;
 public class CanvasScript : MonoBehaviour
 {
     public Canvas canvas;
-    public static CanvasScript instance;
+    public static CanvasScript canvasInstance;
     bool ispaused = false;
 
     // Update is called once per frame
 
     private void Awake()
     {
-        if (instance == null)
+        if (canvasInstance == null)
         {
-            instance = this;
+            canvasInstance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -57,21 +57,18 @@ public class CanvasScript : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(GameManager.currentScene);
-
-        Resume();
-    }
-    public void Respawn()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindWithTag("Player");
+        GameManager.instance.playerSpawnPoint = GameManager.instance.initialSpawnpoint;
         player.GetComponent<CharacterMovement>().Die();
+        
+        Debug.Log("Restart");
         Resume();
     }
+
     public void Quit()
     {
 
         Application.Quit();
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
+
     }
 }

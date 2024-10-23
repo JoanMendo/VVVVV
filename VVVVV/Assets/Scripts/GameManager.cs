@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;  // Prefab del jugador
+    public Vector3 initialSpawnpoint;
     public Vector3 cameraPosition;
     public static GameManager instance;
     public Vector3 playerSpawnPoint;  // Punto de spawn del jugador
@@ -21,29 +22,26 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);  
         }
-        SceneManager.sceneLoaded += OnSceneLoaded;
+
 
     }
 
-    public void ChangeScene()
+    public void ChangeScene(Vector3 cameraPosition, Vector3 characterPosition)
     {
-        currentScene += direction;  
-       
+        currentScene += direction;
 
-        
+        GameObject player = GameObject.FindWithTag("Player");
+        player.transform.position = characterPosition;
+        playerSpawnPoint = characterPosition;
+        initialSpawnpoint = characterPosition;
+        this.cameraPosition = cameraPosition;
         SceneManager.LoadScene(currentScene);
+
+
+
     }
 
-    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        if (direction < 1)
-        {
-            GameObject camera = GameObject.FindGameObjectWithTag("MainCamera");  // Buscar la cámara
-            camera.transform.position = cameraPosition;  // Mover la cámara a la nueva posición
-            GameObject player = GameObject.FindGameObjectWithTag("Player");  // Buscar al jugador
-            player.transform.position = playerSpawnPoint;  // Mover al jugador al nuevo punto de spawn
-        }
-    }
+
    
    
 
