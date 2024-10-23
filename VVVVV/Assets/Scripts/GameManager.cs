@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject playerPrefab;  // Prefab del jugador
     public Vector3 initialSpawnpoint;
+    public Vector3 initialCameraPosition;
     public Vector3 cameraPosition;
     public static GameManager instance;
     public Vector3 playerSpawnPoint;  // Punto de spawn del jugador
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour
         player.transform.position = characterPosition;
         playerSpawnPoint = characterPosition;
         initialSpawnpoint = characterPosition;
+        initialCameraPosition = cameraPosition;
         this.cameraPosition = cameraPosition;
         SceneManager.LoadScene(currentScene);
 
