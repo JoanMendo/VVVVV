@@ -75,7 +75,7 @@ public class EnemyHorse : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(3);
             gameObject.GetComponent<Animator>().SetBool("isMoving", false);
             gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
             moveSpeed = 0;

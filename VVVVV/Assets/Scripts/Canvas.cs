@@ -9,19 +9,8 @@ public class CanvasScript : MonoBehaviour
     private bool isPaused = false;  // Estado del juego (pausado o no)
     private static CanvasScript instance;  // Para implementar un singleton del menú de pausa
 
-    void Awake()
-    {
-        // Si ya existe una instancia del menú de pausa, destruye la nueva
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);  // Evita que el menú de pausa se destruya entre escenas
-        }
-    }
+
+    
 
     void Update()
     {
@@ -56,7 +45,7 @@ public class CanvasScript : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();            // Cierra el juego (en la build)
-        Debug.Log("Saliendo del juego...");  // Mensaje en el editor
+
     }
 
     public void RestartGame()
@@ -69,7 +58,6 @@ public class CanvasScript : MonoBehaviour
         GameManager.instance.playerSpawnPoint = GameManager.instance.initialSpawnpoint;
         player.GetComponent<CharacterMovement>().Die();
 
-        Debug.Log("Reiniciando el juego...");  // Mensaje en el editor
     }
     public void StartGame()
     {
@@ -77,6 +65,16 @@ public class CanvasScript : MonoBehaviour
         isPaused = false;              
         pauseMenuUI.SetActive(false);
         SceneManager.LoadScene("EscenaInicial");
-        Destroy(gameObject);
+      
+        if (GameManager.instance != null)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            GameManager.instance.playerSpawnPoint = new Vector3(-2f, -3.9f, 0f);
+            GameManager.instance.initialCameraPosition = new Vector3(-0.23f, 0, -10f);
+            GameManager.currentScene = 1;
+            player.GetComponent<CharacterMovement>().Die();
+        }
+    
+
     }
 }
