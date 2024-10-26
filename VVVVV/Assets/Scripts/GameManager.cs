@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public Vector3 playerSpawnPoint;  // Punto de spawn del jugador
     public static int currentScene = 1;
-    public int direction = 1;
+
 
     void Awake()  //Lo hago singleton
     {
@@ -27,9 +27,9 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void ChangeScene(Vector3 cameraPosition, Vector3 characterPosition)
+    public void ChangeScene(Vector3 cameraPosition, Vector3 characterPosition, int nextScene)
     {
-        currentScene += direction;
+        currentScene = nextScene;
         GameObject player = GameObject.FindWithTag("Player");
         player.transform.position = characterPosition;
         playerSpawnPoint = characterPosition;

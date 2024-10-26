@@ -11,9 +11,13 @@ public class CharacterMovement : MonoBehaviour
     public LayerMask groundLayer;
     public PhysicsMaterial2D[] physicMaterials;
     private Animator animator;
-    private bool isFloating = false;
+    public bool isFloating = false;
     private Transform raycastOrigin;
     private static CharacterMovement instance;
+    public AudioClip[] audioClips; // Array para almacenar los clips de audio
+    private AudioSource audioSource; // Componente AudioSource
+    private int currentClipIndex = 0; // Índice del audio actual
+
 
     void Awake()
     {
@@ -36,6 +40,12 @@ public class CharacterMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         raycastOrigin = GetComponentInChildren<Transform>(); // Para poder modificar mejor el punto de origen de los raycast
+        audioSource = GetComponent<AudioSource>();
+        if (audioClips.Length > 0)
+        {
+            audioSource.clip = audioClips[currentClipIndex];
+            audioSource.Play();
+        }
 
     }
 
@@ -86,7 +96,15 @@ public class CharacterMovement : MonoBehaviour
         }
 
         checkFloating();
+        if (!audioSource.isPlaying && InputX != 0 && !isFloating)
+        {
+            // Cambia al siguiente clip
+            currentClipIndex = Random.Range(1, 20); // Para reiniciar al primer clip al final
 
+            // Asigna y reproduce el siguiente clip
+            audioSource.clip = audioClips[currentClipIndex];
+            audioSource.Play();
+        }
 
     }
 

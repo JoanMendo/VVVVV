@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class SceneChange : MonoBehaviour
 {
-    public int direction;
+    public int nextScene;
     public Vector3 nextPlayerPosition;
     public Vector3 nextCameraPosition;
 
     public void ChangeScene()
     {
-        GameManager.instance.direction = direction;
-        GameManager.instance.ChangeScene(nextCameraPosition, nextPlayerPosition); //Las posiciones del jugador y la cámara en la escena
+
+        GameManager.instance.ChangeScene(nextCameraPosition, nextPlayerPosition, nextScene); //Las posiciones del jugador y la cámara en la escena
     }
 
     public void OnTriggerEnter2D(Collider2D other)

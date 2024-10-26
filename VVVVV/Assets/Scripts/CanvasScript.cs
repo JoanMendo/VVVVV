@@ -8,14 +8,15 @@ public class CanvasScript : MonoBehaviour
     public GameObject pauseMenuUI;  // Referencia al menú de pausa
     private bool isPaused = false;  // Estado del juego (pausado o no)
     private static CanvasScript instance;  // Para implementar un singleton del menú de pausa
+    public bool canBeDisabled = true;  // Para desactivar el menú de pausa en ciertas escenas
 
 
-    
+
 
     void Update()
     {
         // Si se presiona la tecla "Escape", alterna el menú de pausa
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && canBeDisabled)
         {
             if (isPaused)
             {
