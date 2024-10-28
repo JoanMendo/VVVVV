@@ -36,6 +36,10 @@ public class GameManager : MonoBehaviour
         initialSpawnpoint = characterPosition;
         initialCameraPosition = cameraPosition;
         this.cameraPosition = cameraPosition;
+        if (nextScene == 0)
+        {
+            Cronometro.instance.enMarcha = false;
+        }
         SceneManager.LoadScene(currentScene);
 
 

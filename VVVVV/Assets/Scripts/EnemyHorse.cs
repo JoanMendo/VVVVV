@@ -44,6 +44,7 @@ public class EnemyHorse : MonoBehaviour
     public void detectLimit() //Detecta tanto el suelo como al jugador
     {
         RaycastHit2D hitDown = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.down, 1f, groundLayer);
+        RaycastHit2D hitUp = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.up, 1f, groundLayer);
         RaycastHit2D hitRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 1f, groundLayer);
         RaycastHit2D detectPlayerRight = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.right * direction, 35f, playerLayer | groundLayer); //El parametro final establece en que capas detecta el raycast
         RaycastHit2D detectPlayerLeft = Physics2D.Raycast(enemyRaycast.transform.position, Vector2.left * direction, 35f, playerLayer | groundLayer);
@@ -54,8 +55,9 @@ public class EnemyHorse : MonoBehaviour
         
 
 
-        if ((hitDown.collider == null || hitRight.collider != null) && lastTime+1 < Time.time) //last time para que no se quede en un bucle al llegar a un limite
+        if (((hitDown.collider == null && hitUp.collider == null) || hitRight.collider != null) && lastTime+0.4f < Time.time) //last time para que no se quede en un bucle al llegar a un limite
         {
+            Debug.Log("Cambio de dirección");
             direction *= -1;
             lastTime = Time.time;
         }
@@ -79,10 +81,11 @@ public class EnemyHorse : MonoBehaviour
             gameObject.GetComponent<Animator>().SetBool("isMoving", false);
             gameObject.GetComponent<Animator>().SetBool("isAtacking", false);
             moveSpeed = 0;
-            yield return new WaitForSeconds(2);
+            float random = Random.Range(1.3f, 2.4f);
+            yield return new WaitForSeconds(random);
             gameObject.GetComponent<Animator>().SetBool("isMoving", true);
-            float random = Random.Range(0, 2);
-            if (random < 1)
+            
+            if (random > 1.8f)
             {
                 direction *= -1;
             }

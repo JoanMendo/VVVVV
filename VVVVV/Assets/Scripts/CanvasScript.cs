@@ -34,6 +34,7 @@ public class CanvasScript : MonoBehaviour
         pauseMenuUI.GetComponent<Canvas>().enabled = false;
         Time.timeScale = 1f;           // Restablece el tiempo del juego
         isPaused = false;              // Cambia el estado a "no pausado"
+        Cronometro.instance.enMarcha = true;
     }
 
     void Pause()
@@ -41,6 +42,7 @@ public class CanvasScript : MonoBehaviour
         pauseMenuUI.GetComponent<Canvas>().enabled = true;
         Time.timeScale = 0f;           // Congela el tiempo del juego
         isPaused = true;               // Cambia el estado a "pausado"
+        Cronometro.instance.enMarcha = false;
     }
 
     public void QuitGame()
@@ -54,10 +56,12 @@ public class CanvasScript : MonoBehaviour
         Time.timeScale = 1f;           // Restablece el tiempo del juego
         isPaused = false;              // Cambia el estado a "no pausado"
         pauseMenuUI.GetComponent<Canvas>().enabled = false;
-        SceneManager.LoadScene(GameManager.currentScene);
+        SceneManager.LoadScene(1);
         GameObject player = GameObject.FindWithTag("Player");
         GameManager.instance.playerSpawnPoint = GameManager.instance.initialSpawnpoint;
         player.GetComponent<CharacterMovement>().Die();
+        Cronometro.instance.tiempoTranscurrido = 0f;
+        Cronometro.instance.enMarcha = true;
 
     }
     public void StartGame()
@@ -75,7 +79,10 @@ public class CanvasScript : MonoBehaviour
             GameManager.currentScene = 1;
             player.GetComponent<CharacterMovement>().Die();
         }
-    
+
+        Cronometro.instance.tiempoTranscurrido = 0f;
+        Cronometro.instance.enMarcha = true;
+
 
     }
 }
